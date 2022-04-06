@@ -1,6 +1,6 @@
 'use strict';
 
-const puppeteer = require('puppeteer'),
+const puppeteer = require('puppeteer-extra'),
     {ConnectionDelegate} = require('@nesk/rialto'),
     Logger = require('@nesk/rialto/src/node-process/Logger'),
     ConsoleInterceptor = require('@nesk/rialto/src/node-process/NodeInterceptors/ConsoleInterceptor'),
@@ -28,6 +28,8 @@ class PuppeteerConnectionDelegate extends ConnectionDelegate
      * @inheritdoc
      */
     async handleInstruction(instruction, responseHandler, errorHandler) {
+		const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+		puppeteer.use(StealthPlugin());
         instruction.setDefaultResource(puppeteer);
 
         let value = null;
